@@ -1,6 +1,6 @@
 # Sophons
 
-A read-time, browser-based collaborative online editor
+A real-time, browser-based collaborative online editor
 
 This is the git repo for Microsoft Capstone Project: 
 https://github.com/shunjizhan/Microsoft-Capstone
