@@ -5,7 +5,7 @@ A read-time, browser-based collaborative online editor
 This is the git repo for Microsoft Capstone Project: 
 https://github.com/shunjizhan/Microsoft-Capstone
 
-The final version is in folder [**Public/Chat_Monaco**](https://github.com/shunjizhan/Microsoft-Capstone/tree/master/Public/Chat_Monaco) (Click to see detailed documentations)
+The final version is in folder [**Public/Chat_Monaco**](https://github.com/ZixiaWeng/Microsoft-Capstone/blob/master/) 
 
 **Project name: Sophons**<br/>
 Team members: Shunji Zhan, Bo Luan, Chunqing Liu, Zixia Weng, Zehao Li<br/>
@@ -25,7 +25,7 @@ Socket.io <br/>
 Node.js <br/>
 Microsoft Azure Table Storage
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/ZixiaWeng/Microsoft-Capstone/blob/master/sophons.png)
 
 To host the server: <br/>
 Set environment variables by running **each line** of readdddddd.sh in the terminal.<br/>
