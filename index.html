@@ -1,0 +1,144 @@
+<HTML>
+<HEAD>
+<TITLE>Microsophons</TITLE>
+</HEAD>
+<style>
+form#send { background: #FFF; position: relative; padding: 0px; margin: 0 auto;
+   top:40%; width: 50%; z-index: 101; }
+form#send input { border: 0; padding: 10px; width: calc(100% - 155px); left: 0px; margin-right: .5%;}
+form#send button { color: aliceblue; width: 75px; background-color: #234283; border: none; padding: 10px; position:absolute; margin-right: 2px; }
+
+.center {
+    display: block;
+    margin: auto;
+    width: 42%;
+}
+</style>
+<!--<BODY BGCOLOR="#3A629E">-->
+<BODY BGCOLOR="#37474F">
+<canvas id="canvas" style="position: absolute;" ></canvas>
+	            <script>
+                    //define how many points and other basic parameters
+                    var WIDTH = window.innerWidth, HEIGHT = window.innerHeight, POINT = 30;
+
+                    var canvas = document.getElementById('canvas');
+                    document.body.style.background = canvas;
+                    canvas.width = WIDTH,
+                    canvas.height = HEIGHT;
+                    var context = canvas.getContext('2d');
+                    context.strokeStyle = 'rgba(20,110,330,0.2)',
+                    context.strokeWidth = 2,
+                    context.fillStyle = 'rgba(255,255,255,0.4)';
+                    var circleArr = [];
+
+                    function Line (x, y, _x, _y, o) {
+                        this.beginX = x,
+                        this.beginY = y,
+                        this.closeX = _x,
+                        this.closeY = _y,
+                        this.o = o;
+                    }
+                    function Circle (x, y, r, moveX, moveY) {
+                        this.x = x,
+                        this.y = y,
+                        this.r = r,
+                        this.moveX = moveX,
+                        this.moveY = moveY;
+                    }
+                    //generate random numbers
+                    function num (max, _min) {
+                        var min = arguments[1] || 0;
+                        return Math.floor(Math.random()*(max-min+1)+min);
+                    }
+                    // draw circles
+                    function drawCricle (cxt, x, y, r, moveX, moveY) {
+                        var circle = new Circle(x, y, r, moveX, moveY)
+                        cxt.beginPath()
+                        cxt.arc(circle.x, circle.y, circle.r, 0, 2*Math.PI)
+                        cxt.lineWidth=1;
+                        cxt.lineStyle="#ffff00";
+                        cxt.font=""+ circle.r + "px sans-serif";
+                        cxt.fillText("", circle.x, circle.y);
+
+                        cxt.closePath();
+                        cxt.fill();
+                        return circle;
+                    }
+                    // draw lines
+                    function drawLine (cxt, x, y, _x, _y, o) {
+                        var line = new Line(x, y, _x, _y, o)
+                        cxt.beginPath()
+                        cxt.strokeStyle = 'rgba(20,110,330,0.025)'
+                        cxt.moveTo(line.beginX, line.beginY)
+                        cxt.lineTo(line.closeX, line.closeY)
+                        cxt.closePath()
+                        cxt.stroke();
+
+                    }
+                    //initialization
+                    function init () {
+                        circleArr = [];
+                        for (var i = 0; i < POINT; i++) {
+                            circleArr.push(drawCricle(context, num(WIDTH), num(HEIGHT), num(15, 2), num(10, -10)/40, num(10, -10)/40));
+                        }
+                        draw();
+                    }
+
+                    //draw within a loop
+                    function draw () {
+                        context.clearRect(0,0,canvas.width, canvas.height);
+                        for (var i = 0; i < POINT; i++) {
+                            drawCricle(context, circleArr[i].x, circleArr[i].y, circleArr[i].r);
+                        }
+                        for (var i = 0; i < POINT; i++) {
+                            for (var j = 0; j < POINT; j++) {
+                                if (i + j < POINT) {
+                                    var A = Math.abs(circleArr[i+j].x - circleArr[i].x),
+                                        B = Math.abs(circleArr[i+j].y - circleArr[i].y);
+                                    var lineLength = Math.sqrt(A*A + B*B);
+                                    var C = 1/lineLength*7-0.009;
+                                    var lineOpacity = C > 0.03 ? 0.03 : C;
+                                    if (lineOpacity > 0) {
+                                        drawLine(context, circleArr[i].x, circleArr[i].y, circleArr[i+j].x, circleArr[i+j].y, lineOpacity);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    //call function
+                    window.onload = function () {
+                        init();
+                        setInterval(function () {
+                            for (var i = 0; i < POINT; i++) {
+                                var cir = circleArr[i];
+                                cir.x += cir.moveX;
+                                cir.y += cir.moveY;
+                                if (cir.x > WIDTH) cir.x = 0;
+                                else if (cir.x < 0) cir.x = WIDTH;
+                                if (cir.y > HEIGHT) cir.y = 0;
+                                else if (cir.y < 0) cir.y = HEIGHT;
+
+                            }
+                            draw();
+                        }, 16);
+                    }
+
+                </script>
+<div style="position: relative; top: 30%; "><img src="images/microsophon.png" class="center"/></div>
+<div style="position: relative; top: 30%; "><center style="font-family:verdana; color: white;" >A Real-time Coding Collaborator</center></div>
+<form id="send" action="">
+    <input type="text" id="linkInput" autocomplete="off" placeholder="Enter your project name here"/>
+    <button id ="inputClick" type="submit" style="margin-right:2px; width: 75px; right: 78px;" >Start New</button>
+    <button id ="searchClick" type="submit" style="width: 75px; right: 0px;" >Search</button>
+</form>
+    
+<script src="js/jQuery.js"></script>
+<script src="js/route.js" type="text/javascript"></script>
+    
+</BODY>
+</HTML>
+
+
+
+
